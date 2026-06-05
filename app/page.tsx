@@ -1,4 +1,5 @@
 import InteractiveFlowchart from '../components/interactive_flowchart';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default function Home() {
   return (
@@ -6,7 +7,7 @@ export default function Home() {
       
       {/* Your flowchart component is rendered here */}
       <InteractiveFlowchart />
-      
+      <SpeedInsights/>
     </div>
   );
 }
