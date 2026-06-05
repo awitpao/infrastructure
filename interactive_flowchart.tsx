@@ -105,7 +105,7 @@ const processData = [
 ];
 
 // --- HELPER COMPONENTS ---
-const RoleBadge = ({ role }) => {
+const RoleBadge = ({ role }: { role: string }) => {
   let colors = 'bg-gray-100 text-gray-700 border-gray-200'; // Default Neutral/Lead
   
   if (role === 'RevOps') colors = 'bg-blue-100 text-blue-800 border-blue-200';
@@ -215,7 +215,7 @@ export default function App() {
                         {step.text}
                       </p>
                       <div className="shrink-0">
-                        <RoleBadge role={step.role} />
+                        <RoleBadge role={step.role || 'Neutral'} />
                       </div>
                     </div>
                   </div>
