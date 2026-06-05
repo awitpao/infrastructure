@@ -107,9 +107,7 @@ const processData = [
 ];
 
 // --- HELPER COMPONENTS ---
-type RoleBadgeProps = { role: string };
-
-const RoleBadge: React.FC<RoleBadgeProps> = ({ role }: { role: string }) => {
+const RoleBadge = ({ role }: { role: string }) => {
   let colors = 'bg-gray-100 text-gray-700 border-gray-200'; // Default Neutral/Lead
   
   if (role === 'RevOps') colors = 'bg-blue-100 text-blue-800 border-blue-200';
@@ -120,7 +118,7 @@ const RoleBadge: React.FC<RoleBadgeProps> = ({ role }: { role: string }) => {
   if (role === 'Gina & CS') colors = 'bg-pink-100 text-pink-800 border-pink-200';
 
   return (
-    <span className={`px-2.5 py-1 text-xs font-semibold rounded-full border ${colors} whitespace-nowrap shadow-sm`}>
+    <span className={`px-2 py-0.5 text-[11px] font-semibold rounded-full border ${colors} whitespace-nowrap shadow-sm`}>
       {role}
     </span>
   );
@@ -156,16 +154,16 @@ export default function App() {
                     onClick={() => setActivePhaseIndex(index)}
                     className={`flex-1 w-full md:w-auto relative cursor-pointer group transition-all duration-300 ease-out transform ${
                       isActive 
-                        ? 'scale-105 shadow-lg bg-white ring-2 ring-indigo-500' 
+                        ? 'scale-105 shadow-lg bg-white ring-2 ring-rose-600' 
                         : 'shadow hover:shadow-md bg-white hover:-translate-y-1 ring-1 ring-gray-200'
                     } rounded-xl p-6 text-center`}
                   >
                     <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-colors ${
-                      isActive ? `bg-indigo-100 text-indigo-600` : `bg-gray-50 text-gray-400 group-hover:text-indigo-500 group-hover:bg-indigo-50`
+                      isActive ? `bg-rose-100 text-rose-600` : `bg-gray-50 text-gray-400 group-hover:text-rose-600 group-hover:bg-rose-50`
                     }`}>
                       {phase.icon}
                     </div>
-                    <h3 className={`text-lg font-bold mb-2 ${isActive ? 'text-indigo-700' : 'text-gray-800'}`}>
+                    <h3 className={`text-lg font-bold mb-2 ${isActive ? 'text-rose-700' : 'text-gray-800'}`}>
                       {index + 1}. {phase.title}
                     </h3>
                     <p className="text-sm text-gray-500 leading-tight">
@@ -174,7 +172,7 @@ export default function App() {
                     
                     {/* Active Indicator */}
                     {isActive && (
-                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-indigo-500 rotate-45 rounded-sm"></div>
+                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-rose-600 rotate-45 rounded-sm"></div>
                     )}
                   </div>
                   
@@ -191,31 +189,31 @@ export default function App() {
         </div>
 
         {/* MICRO VIEW: Detailed Timeline */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-10 relative overflow-hidden transition-all duration-500">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 md:p-6 relative overflow-hidden transition-all duration-500">
           
-          <div className="mb-8 border-b border-gray-100 pb-4 flex items-center justify-between">
+          <div className="mb-6 border-b border-gray-100 pb-3 flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-gray-800">
+              <h2 className="text-xl font-bold text-gray-800">
                 Phase {activePhase.id}: {activePhase.title}
               </h2>
-              <p className="text-gray-500 mt-1">Detailed Step-by-Step Flow</p>
+              <p className="text-sm text-gray-500 mt-0.5">Detailed Step-by-Step Flow</p>
             </div>
           </div>
 
           {/* Timeline Container */}
-          <div className="relative border-l-2 border-indigo-100 ml-4 md:ml-6 space-y-8 pb-4">
+          <div className="relative border-l-2 border-rose-200 ml-3 md:ml-4 space-y-4 pb-2">
             
             {activePhase.steps.map((step, idx) => (
-              <div key={idx} className="relative pl-8 md:pl-10">
+              <div key={idx} className="relative pl-6 md:pl-8">
                 
                 {/* Timeline Dot */}
-                <span className="absolute -left-[11px] top-1 w-5 h-5 rounded-full bg-white border-4 border-indigo-200 flex items-center justify-center shadow-sm"></span>
+                <span className="absolute -left-[7px] top-1.5 w-4 h-4 rounded-full bg-white border-[3px] border-rose-300 flex items-center justify-center shadow-sm"></span>
 
                 {/* Standard Step Render */}
                 {!step.type && (
-                  <div className="bg-gray-50 rounded-xl p-4 md:p-5 border border-gray-100 hover:shadow-md transition-shadow">
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-                      <p className="text-gray-700 font-medium leading-relaxed mt-1 flex-1 text-[15px]">
+                  <div className="bg-gray-50 rounded-lg p-3 hover:shadow-sm transition-shadow border border-gray-100">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <p className="text-gray-700 font-medium leading-snug flex-1 text-sm">
                         {step.text}
                       </p>
                       <div className="shrink-0">
@@ -227,20 +225,20 @@ export default function App() {
 
                 {/* Conditional / Branch Render */}
                 {step.type === 'condition' && (
-                  <div className="bg-amber-50/50 rounded-xl p-4 md:p-5 border border-amber-200/60 relative overflow-hidden">
+                  <div className="bg-amber-50/50 rounded-lg p-3 md:p-4 border border-amber-200/60 relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-1 h-full bg-amber-400"></div>
                     
-                    <div className="flex items-center gap-2 mb-4 text-amber-800 font-bold">
-                      <GitBranch className="w-5 h-5" />
-                      <h4>{step.conditionText}</h4>
+                    <div className="flex items-center gap-2 mb-3 text-amber-800 font-bold">
+                      <GitBranch className="w-4 h-4" />
+                      <h4 className="text-sm">{step.conditionText}</h4>
                     </div>
 
-                    <div className="space-y-3 pl-2 md:pl-4 border-l border-amber-200 border-dashed">
+                    <div className="space-y-2 pl-2 md:pl-3 border-l border-amber-200 border-dashed">
                       {step.subSteps.map((subStep, subIdx) => (
-                        <div key={subIdx} className="flex flex-col sm:flex-row sm:items-center justify-between bg-white rounded-lg p-3 border border-amber-100 shadow-sm gap-3">
-                          <div className="flex items-start gap-2">
-                            <CircleDot className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
-                            <p className="text-sm text-gray-700 font-medium">{subStep.text}</p>
+                        <div key={subIdx} className="flex flex-col sm:flex-row sm:items-center justify-between bg-white rounded p-2 border border-amber-100 shadow-sm gap-2">
+                          <div className="flex items-start gap-1.5">
+                            <CircleDot className="w-3.5 h-3.5 text-amber-400 mt-0.5 shrink-0" />
+                            <p className="text-[13px] text-gray-700 font-medium leading-tight">{subStep.text}</p>
                           </div>
                           <div className="shrink-0">
                             <RoleBadge role={subStep.role} />
@@ -255,11 +253,11 @@ export default function App() {
             ))}
             
             {/* End of Timeline Indicator */}
-            <div className="relative pl-8 md:pl-10 pt-4">
-              <span className="absolute -left-[13px] top-4 w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center shadow-md">
-                <CheckCircle2 className="w-4 h-4" />
+            <div className="relative pl-6 md:pl-8 pt-2">
+              <span className="absolute -left-[9px] top-2 w-5 h-5 rounded-full bg-rose-600 text-white flex items-center justify-center shadow-md">
+                <CheckCircle2 className="w-3 h-3" />
               </span>
-              <p className="text-sm font-bold text-gray-400 uppercase tracking-widest pt-1">
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest pt-0.5">
                 End of Phase {activePhase.id}
               </p>
             </div>
